@@ -1,0 +1,42 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const books = await getCollection('books');
+---
+<Layout title="Biblioteca de Astro.">
+	<main>
+		<header class="flex gap-4">
+			<img src="/astro-svgrepo-com.svg" class="h-10" />
+			<h1 class="text-4xl font-bold mb-8 md:mb-12">Bookverse</h1>
+		</header>	
+
+		<section aria-label="Libros recomendados para programadores">
+			<div class="mx-auto max-w-screen-xl">
+				<div class="grid md:grid-cols-2 gap-6">
+					{books.map((book) => {
+						const { slug, data } = book;
+						const { title, author, description, img, readtime } = data;
+
+						return (
+							<a href={`libro/${slug}`} class="flex p-4 rounded-lg shadow-lg hover:bg-gray-800 cursor-pointer transition duration-200 ease-in-out">
+								<img
+									transition:name={`img-${slug}`}
+									src={`/${img}`}
+									alt={title}
+									class="mr-5 w-24 h-32 md:w-48 md:h-64 object-cover rounded-md" 
+								/>							
+								<div class="flex flex-col md:p-4">
+									<h2 class="mb-2 text-xl md:text-2xl font-semibold text-white leading-tight">{title}</h2>
+									<span class="text-gray-400">Autor: {author}</span>									
+									<p class="mb-6 text-gray-300 max-w-sm line-clamp-3">{description}</p>									
+									<span class="hidden md:block text-sm text-gray-500">Lectura en {readtime} minutos</span>
+								</div>															
+							</a>
+						)
+					})}
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>
