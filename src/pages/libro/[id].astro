@@ -4,7 +4,7 @@ import Layout from '../../layouts/Layout.astro';
 import BookScore from '../../components/BookScore.astro';
 import BuyButton from '../../components/BuyButton.astro';
 
-const SHOW_BUY_BUTTON = process.env.SHOW_BUY_BUTTON;
+const SHOW_BUY_BUTTON = true;
 
 export async function getStaticPaths() {
     const books = await getCollection('books');
