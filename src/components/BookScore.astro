@@ -1,0 +1,18 @@
+---
+const SCORE_API_ENDPOINT = process.env.SCORE_API_ENDPOINT;
+
+const res = await fetch(SCORE_API_ENDPOINT!)
+let scoreValue: string | number = await res.text()
+scoreValue = Number(scoreValue.trim())
+---
+
+<span class="text-sm" id="score">
+  {Array.from({ length: 5 }, (_, index) => (
+    <span
+      class={`${index < scoreValue ? 'text-yellow-500' : 'text-gray-400'}`}
+    >
+      <i class={index < scoreValue ? 'fas fa-star' : 'far fa-star'}></i>
+    </span>
+  ))}  
+</span>
+
